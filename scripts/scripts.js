@@ -41,20 +41,38 @@ function game() {
             } else {
                 console.log("placeMarker", placeMarker(xPlayer, rowInput, colInput));
             }
-            // winState();
+            winState();
         }
     }
 }
 
-// function winState(){
-//     let won = false;
-//     gameboard.forEach(row => {
-//         if(row[0] == "x" && row[1] == "x" && row[2] == "x"){
-//             won = true;
-//             alert("won!")
-//         }        
-//     });
-// }
+game();
+
+function winState(){
+    let won = false;
+    for (let i = 0; i < 3; i++) {
+        if (gameboard[i][0] === gameboard[i][1] && gameboard[i][1] === gameboard[i][2] && gameboard[i][0] !== "") {
+            won = true;
+            alert("Player " + gameboard[i][0] + " won!");
+            return;
+        }
+    }
+
+    for (let i = 0; i < 3; i++) {
+        if (gameboard[0][i] === gameboard[1][i] && gameboard[1][i] === gameboard[2][i] && gameboard[0][i] !== "") {
+            won = true;
+            alert("Player " + gameboard[0][i] + " won!");
+            return;
+        }
+    }
+
+    if ((gameboard[0][0] === gameboard[1][1] && gameboard[1][1] === gameboard[2][2] && gameboard[0][0] !== "") ||
+        (gameboard[0][2] === gameboard[1][1] && gameboard[1][1] === gameboard[2][0] && gameboard[0][2] !== "")) {
+        won = true;
+        alert("Player " + gameboard[1][1] + " won!");
+        return;
+    } 
+}
 
 
 
