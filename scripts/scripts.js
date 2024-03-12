@@ -87,6 +87,7 @@ function userInput(cells){
             console.log("click on", cell.id);
         })
     });
+
 }
 
 
