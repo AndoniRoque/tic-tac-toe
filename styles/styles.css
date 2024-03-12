@@ -1,6 +1,32 @@
 html, body {
+    display: flex;
     margin: 0px;
     padding: 0px;
     background-color: darkslateblue;
+    width: 100vw;
+    height: auto;
 }
 
+#container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: 75px 75px 75px;
+    grid-template-rows: 75px 75px 75px;
+    gap: 10px;
+}
+
+.gameboard > div{
+    outline: 2px solid lightblue;
+    background-color: cadetblue;
+}
+
+.gameboard > div:hover{ 
+    scale: 1.05;
+}
