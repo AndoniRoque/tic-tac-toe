@@ -78,7 +78,7 @@ function winState() {
     if ((gameboard.gameboard[0][0] !== "" && gameboard.gameboard[0][0] === gameboard.gameboard[1][1] && gameboard.gameboard[1][1] === gameboard.gameboard[2][2]) ||
         (gameboard.gameboard[0][2] !== "" && gameboard.gameboard[0][2] === gameboard.gameboard[1][1] && gameboard.gameboard[1][1] === gameboard.gameboard[2][0])) {
         console.log("gameboard.gameboard[0][0]", gameboard.gameboard[0][0]);
-        alert("Player " + gameboard.gameboard[0][0] + " won!");
+        alert("Player " + gameboard.gameboard[1][1] + " won!");
         return true;
     }
 
