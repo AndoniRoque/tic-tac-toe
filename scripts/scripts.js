@@ -26,13 +26,18 @@ function game(cells) {
     cells.forEach(cell => {
         cell.isClicked = false;
         cell.addEventListener('click', () =>{
-            console.log(round);              
+            console.log(cell);              
             
             if(round % 2 == 0){
-                userInput(gameboard.cells, oPlayer);                
+                userInput(gameboard.cells, oPlayer);     
+                console.log(cell.id);
+                let coordinates = getCoordinates(cell.id);
+                placeMarker(xPlayer, coordinates.row,coordinates.col);
                 // console.log("placeMarker", placeMarker(oPlayer, rowInput, colInput));
             } else {
                 userInput(gameboard.cells, xPlayer);
+                let coordinates = getCoordinates(cell.id);
+                placeMarker(oPlayer, coordinates.row, coordinates.col);
                 // console.log("placeMarker", placeMarker(xPlayer, rowInput, colInput));
             }
             
@@ -50,32 +55,35 @@ function game(cells) {
 }
 
 
-function winState(){
-    let won = false;
-    for (let i = 0; i < 3; i++) {
-        if (gameboard.gameboard[i][0] === gameboard.gameboard[i][1] && gameboard.gameboard[i][1] === gameboard.gameboard[i][2] && gameboard.gameboard[i][0] !== "") {
-            won = true;
-            alert("Player " + gameboard.gameboard[i][0] + " won!");
+function winState() {
+    // Check rows
+    for (let row = 0; row < 3; row++) {
+        if (gameboard.gameboard[row][0] !== "" && gameboard.gameboard[row][0] === gameboard.gameboard[row][1] && gameboard.gameboard[row][1] === gameboard.gameboard[row][2]) {
+            console.log(gameboard);
+            alert("Player " + gameboard.gameboard[row][0] + " won!");
             return true;
         }
     }
-    
-    for (let i = 0; i < 3; i++) {
-        if (gameboard.gameboard[0][i] === gameboard.gameboard[1][i] && gameboard.gameboard[1][i] === gameboard.gameboard[2][i] && gameboard.gameboard[0][i] !== "") {
-            won = true;
-            alert("Player " + gameboard.gameboard[0][i] + " won!");
-            return true;
-        }
-    }
-    
-    if ((gameboard.gameboard[0][0] === gameboard.gameboard[1][1] && gameboard.gameboard[1][1] === gameboard.gameboard[2][2] && gameboard.gameboard[0][0] !== "") ||
-    (gameboard.gameboard[0][2] === gameboard.gameboard[1][1] && gameboard.gameboard[1][1] === gameboard.gameboard[2][0] && gameboard.gameboard[0][2] !== "")) {
-        won = true;
-        alert("Player " + gameboard.gameboard[1][1] + " won!");
-        return true;
-    }   
-}
 
+    // Check columns
+    for (let col = 0; col < 3; col++) {
+        if (gameboard.gameboard[0][col] !== "" && gameboard.gameboard[0][col] === gameboard.gameboard[1][col] && gameboard.gameboard[1][col] === gameboard.gameboard[2][col]) {
+            console.log("gameboard.gameboard[0][col]", gameboard.gameboard[0][col]);
+            alert("Player " + gameboard.gameboard[0][col] + " won!");
+            return true;
+        }
+    }
+
+    // Check diagonals
+    if ((gameboard.gameboard[0][0] !== "" && gameboard.gameboard[0][0] === gameboard.gameboard[1][1] && gameboard.gameboard[1][1] === gameboard.gameboard[2][2]) ||
+        (gameboard.gameboard[0][2] !== "" && gameboard.gameboard[0][2] === gameboard.gameboard[1][1] && gameboard.gameboard[1][1] === gameboard.gameboard[2][0])) {
+        console.log("gameboard.gameboard[0][0]", gameboard.gameboard[0][0]);
+        alert("Player " + gameboard.gameboard[0][0] + " won!");
+        return true;
+    }
+
+    return false; // Return false if no winner
+}
 
 function userInput(cells, player){
     cells.forEach(cell => {
@@ -87,6 +95,31 @@ function userInput(cells, player){
         }
     });
 
+}
+
+function getCoordinates(id) {
+    switch (id) {
+        case "zeroZero":
+            return { row: 0, col: 0 };
+        case "zeroOne":
+            return { row: 0, col: 1 };
+        case "zeroTwo":
+            return { row: 0, col: 2 };
+        case "oneZero":
+            return { row: 1, col: 0 };
+        case "oneOne":
+            return { row: 1, col: 1 };
+        case "oneTwo":
+            return { row: 1, col: 2 };
+        case "twoZero":
+            return { row: 2, col: 0 };
+        case "twoOne":
+            return { row: 2, col: 1 };
+        case "twoTwo":
+            return { row: 2, col: 2 };
+        default:
+            return null;
+    }
 }
 
 
