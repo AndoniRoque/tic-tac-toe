@@ -17,17 +17,17 @@ function placeMarker(player, row, col) {
     gameboard.gameboard[row][col] = marker;
 }
 
-function game() {
+function game(cells) {
     let round = 0;    
     const xPlayer = new Player("x", "equis");
     const oPlayer = new Player("o", "circulo");
     
-    
-    for(let j = 0; j < 3; j++){
-        for(let t = 0; t < 3; t++){
+
+    cells.forEach(cell => {
+        cell.isClicked = false;
+        cell.addEventListener('click', () =>{
+            console.log(round);              
             
-            round++;     
-                
             if(round % 2 == 0){
                 userInput(gameboard.cells, oPlayer);                
                 // console.log("placeMarker", placeMarker(oPlayer, rowInput, colInput));
@@ -38,14 +38,14 @@ function game() {
             
             if(winState()) {
                 return;
+            } else if(round == 9){
+                alert("It's a tie!");
+                return;
             }
-        }
-    }
+            round++;  
+        })
+    })
     
-    if(round == 9) {
-        alert("It's a tie!");
-        return;
-    }
         
 }
 
@@ -78,15 +78,17 @@ function winState(){
 
 
 function userInput(cells, player){
-    console.log(player);
     cells.forEach(cell => {
-        cell.addEventListener('click', () =>{
-            cell.textContent = player.mark;
-            return cell;
-        })
+        if(!cell.isClicked) {
+            cell.addEventListener('click', () =>{
+                cell.textContent = player.mark;
+                return cell;
+            })
+        }
     });
 
 }
 
 
-game();
+game(gameboard.cells);
+

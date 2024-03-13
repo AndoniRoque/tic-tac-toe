@@ -2,9 +2,12 @@ html, body {
     display: flex;
     margin: 0px;
     padding: 0px;
-    background-color: darkslateblue;
     width: 100vw;
     height: auto;
+    background-image: radial-gradient(#474bff 3px, transparent 3px), radial-gradient(#474bff 3px, transparent 3px);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+    background-color: darkslateblue;
 }
 
 #container {
