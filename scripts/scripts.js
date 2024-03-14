@@ -1,6 +1,5 @@
 let gameboard = createGameboard();
 
-
 function createGameboard () {
     const gameboard = [["","",""], ["","",""], ["","",""]];
     const cells = document.querySelectorAll('.gameboard div');
@@ -22,27 +21,29 @@ function game(cells) {
     const xPlayer = new Player("x", "equis");
     const oPlayer = new Player("o", "circulo");
     
-
     cells.forEach(cell => {
         cell.isClicked = false;
         cell.addEventListener('click', () =>{
-            if(round % 2 == 0){   
-                let coordinates = getCoordinates(cell.id);
-                cell.textContent = "x";
-                placeMarker(xPlayer, coordinates.row,coordinates.col);
+            if (!cell.textContent) {
+                if (round % 2 === 0) {
+                    cell.textContent = "x";
+                    let coordinates = getCoordinates(cell.id);
+                    placeMarker(xPlayer, coordinates.row, coordinates.col);
+                } else {
+                    cell.textContent = "o";
+                    let coordinates = getCoordinates(cell.id);
+                    placeMarker(oPlayer, coordinates.row, coordinates.col);
+                }
+                round++;  
+
+                if (winState()) {
+                    // Handle win state
+                } else if (round === 9) {
+                    alert("It's a tie!");
+                }
             } else {
-                cell.textContent = "o";
-                let coordinates = getCoordinates(cell.id);
-                placeMarker(oPlayer, coordinates.row, coordinates.col);
+                alert("Cell already used!");
             }
-            
-            if(winState()) {
-                return;
-            } else if(round == 9){
-                alert("It's a tie!");
-                return;
-            }
-            round++;  
         })
     })        
 }
@@ -75,18 +76,6 @@ function winState() {
     }
 
     return false; // Return false if no winner
-}
-
-function userInput(cells, player){
-    cells.forEach(cell => {
-        if(!cell.isClicked) {
-            cell.addEventListener('click', () =>{
-                cell.textContent = player.mark;
-                return cell;
-            })
-        }
-    });
-
 }
 
 function getCoordinates(id) {
