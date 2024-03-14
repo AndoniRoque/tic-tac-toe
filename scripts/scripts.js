@@ -26,19 +26,14 @@ function game(cells) {
     cells.forEach(cell => {
         cell.isClicked = false;
         cell.addEventListener('click', () =>{
-            console.log(cell);              
-            
-            if(round % 2 == 0){
-                userInput(gameboard.cells, oPlayer);     
-                console.log(cell.id);
+            if(round % 2 == 0){   
                 let coordinates = getCoordinates(cell.id);
+                cell.textContent = "x";
                 placeMarker(xPlayer, coordinates.row,coordinates.col);
-                // console.log("placeMarker", placeMarker(oPlayer, rowInput, colInput));
             } else {
-                userInput(gameboard.cells, xPlayer);
+                cell.textContent = "o";
                 let coordinates = getCoordinates(cell.id);
                 placeMarker(oPlayer, coordinates.row, coordinates.col);
-                // console.log("placeMarker", placeMarker(xPlayer, rowInput, colInput));
             }
             
             if(winState()) {
@@ -49,11 +44,8 @@ function game(cells) {
             }
             round++;  
         })
-    })
-    
-        
+    })        
 }
-
 
 function winState() {
     // Check rows
